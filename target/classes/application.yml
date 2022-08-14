@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_rwagent
+    username: postgres
+    password: 7808
+
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+
+  spring:
+    mvc:
+      pathmatch:
+        matching-strategy: ant_path_matcher
+
+
+
+

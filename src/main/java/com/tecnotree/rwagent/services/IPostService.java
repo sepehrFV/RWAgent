@@ -12,8 +12,6 @@ public interface IPostService extends IGenericService<Post, Long> {
 
     List<Post> findAllContainPatternInTitle();
 
-    Long findIdByEntity(Post post);
-
     Post update(Long id, PostUpdateDTO changed);
 
 }

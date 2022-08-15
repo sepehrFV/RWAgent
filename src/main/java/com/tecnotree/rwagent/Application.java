@@ -15,16 +15,6 @@ public class Application {
         SpringApplication.run(Application.class,args);
 
 
-        /*Thread one = new Thread(new ReadPosts());
-        Thread two = new Thread(new ReadComments());
-        Thread three = new Thread(new ReadToDos());
-
-
-
-
-        one.start();
-        two.start();
-        three.start();*/
 
 
     }

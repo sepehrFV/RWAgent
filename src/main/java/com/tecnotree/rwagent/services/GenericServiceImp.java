@@ -1,9 +1,9 @@
 package com.tecnotree.rwagent.services;
 
+import com.tecnotree.rwagent.exceptions.NotFoundException;
 import com.tecnotree.rwagent.repositories.GenericRepository;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.dao.DataAccessException;
-import org.webjars.NotFoundException;
 import java.util.List;
 
 public abstract class GenericServiceImp<E, ID> implements IGenericService<E, ID> {
@@ -19,6 +19,7 @@ public abstract class GenericServiceImp<E, ID> implements IGenericService<E, ID>
         logger.info("enter "+getExtendedClass().getName()+" create()");
         try{
             getRepository().save(entity);
+            logger.info(getExtendedClass().getName()+" saved");
         }catch(DataAccessException ex){
             logger.error("message: "+ex.getMessage());
         }

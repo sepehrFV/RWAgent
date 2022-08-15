@@ -4,6 +4,7 @@ package com.tecnotree.rwagent.services;
 import com.tecnotree.rwagent.dtos.CommentDTO;
 import com.tecnotree.rwagent.dtos.CommentUpdateDTO;
 import com.tecnotree.rwagent.entities.Comment;
+import com.tecnotree.rwagent.mappers.CommentMapper;
 import com.tecnotree.rwagent.repositories.CommentRepository;
 import com.tecnotree.rwagent.repositories.GenericRepository;
 import org.springframework.dao.DataAccessException;
@@ -18,10 +19,12 @@ public class CommentService extends GenericServiceImp<Comment, Long> implements 
 
     private final CommentRepository repository;
     private final IPostService postService;
+    private final CommentMapper mapper;
 
-    public CommentService(CommentRepository repository, IPostService postService) {
+    public CommentService(CommentRepository repository, IPostService postService, CommentMapper mapper) {
         this.repository = repository;
         this.postService = postService;
+        this.mapper = mapper;
     }
 
     @Override
@@ -34,22 +37,6 @@ public class CommentService extends GenericServiceImp<Comment, Long> implements 
         return getClass();
     }
 
-    @Override
-    public void create(CommentDTO dto) {
-        logger.info("creating comment object:"+dto.toString());
-        try{
-            Comment comment = new Comment();
-            comment.setName(dto.getName());
-            comment.setEmail(dto.getEmail());
-            comment.setPost(postService.findById(dto.getPostId()));
-            comment.setBody(dto.getBody());
-            repository.save(comment);
-            logger.info("created:)");
-        }catch (DataAccessException ex){
-            logger.error(ex.getMessage());
-        }
-
-    }
 
     @Override
     public Comment update(Long id, CommentUpdateDTO changed) {

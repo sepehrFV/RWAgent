@@ -15,7 +15,5 @@ public interface ICommentService extends IGenericService<Comment, Long> {
 
     Page<Comment> findAllPagination(int page, int size);
 
-    void create(CommentDTO dto);
-
 
 }

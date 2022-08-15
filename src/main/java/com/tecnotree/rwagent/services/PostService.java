@@ -2,6 +2,7 @@ package com.tecnotree.rwagent.services;
 
 import com.tecnotree.rwagent.dtos.PostUpdateDTO;
 import com.tecnotree.rwagent.entities.Post;
+import com.tecnotree.rwagent.exceptions.NotFoundException;
 import com.tecnotree.rwagent.repositories.GenericRepository;
 import com.tecnotree.rwagent.repositories.PostRepository;
 import org.springframework.dao.DataAccessException;
@@ -9,13 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 import java.util.List;
 
 @Service
 public class PostService extends GenericServiceImp<Post, Long> implements IPostService {
-
-
 
     private final PostRepository repository;
 
@@ -84,9 +82,5 @@ public class PostService extends GenericServiceImp<Post, Long> implements IPostS
         return postList;
     }
 
-    @Override
-    public Long findIdByEntity(Post post) {
-        return post.getId();
-    }
 
 }

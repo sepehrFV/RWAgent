@@ -10,16 +10,14 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class ReadToDos implements Runnable{
 
-    @Autowired
-    private RestTemplate restTemplate;
 
-    private IToDoService service;
+    private final RestTemplate restTemplate;
 
-    public ReadToDos(IToDoService service) {
+    private final IToDoService service;
+
+    public ReadToDos(RestTemplate restTemplate, IToDoService service) {
+        this.restTemplate = restTemplate;
         this.service = service;
-    }
-
-    public ReadToDos() {
     }
 
     @Override

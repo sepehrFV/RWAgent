@@ -2,26 +2,27 @@ package com.tecnotree.rwagent.exceptions;
 
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.webjars.NotFoundException;
+
 import java.sql.SQLIntegrityConstraintViolationException;
 
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = NotFoundException.class)
+    /*@ExceptionHandler(value = ChangeSetPersister.NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException exp){
         ErrorResponse response = new ErrorResponse(HttpStatus.NOT_FOUND);
         response.setMessage("error message: "+exp.getMessage());
         return buildResponseEntity(response);
 
-    }
+    }*/
 
     @ExceptionHandler(value = ConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)

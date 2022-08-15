@@ -3,9 +3,9 @@ package com.tecnotree.rwagent.controllers;
 import com.tecnotree.rwagent.dtos.CommentDTO;
 import com.tecnotree.rwagent.dtos.CommentUpdateDTO;
 import com.tecnotree.rwagent.entities.Comment;
+import com.tecnotree.rwagent.mappers.CommentMapper;
 import com.tecnotree.rwagent.services.ICommentService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.Operation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
@@ -20,12 +20,13 @@ import java.util.List;
 @RequestMapping(value = "/comment")
 public class CommentController {
 
-    private static final Logger logger = LogManager.getLogger(CommentController.class);
 
     private final ICommentService service;
+    private final CommentMapper mapper;
 
-    public CommentController(ICommentService service) {
+    public CommentController(ICommentService service, CommentMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @ApiOperation(value = "find comments by pagination")
@@ -48,16 +49,16 @@ public class CommentController {
     @ApiOperation(value = "create comment about a post")
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Valid CommentDTO commentDTO) {
-        service.create(commentDTO);
+        service.create(mapper.toEntity(commentDTO));
         return ResponseEntity.ok("comment successfully created");
     }
 
     @ApiOperation(value = "update all comment fields except userId")
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Comment> partialUpdate(
+    public ResponseEntity<CommentDTO> partialUpdate(
             @RequestBody CommentUpdateDTO updateDTO,
             @PathVariable("id") Long id) {
-        return ResponseEntity.ok(service.update(id, updateDTO));
+        return ResponseEntity.ok(mapper.toDTO(service.update(id, updateDTO)));
     }
 
     @ApiOperation(value = "delete comment by specific id")

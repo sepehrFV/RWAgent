@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class CommentDTO {
 
     @NotNull
-    @Min(1)
+    @Min(1L)
     private Long postId;
     private String name;
     private String email;
